@@ -6,22 +6,21 @@ namespace project
     public class Program
     {
         public static void Main(string[] args)
-        {
-            var builder = WebApplication.CreateBuilder(args);
+ {
+         var builder = WebApplication.CreateBuilder(args);
 
             // Add services to the container.
-            builder.Services.AddRazorPages();
-            builder.Services.AddControllersWithViews();
+ builder.Services.AddRazorPages();
             builder.Services.AddSession();
-         
-            // Add DbContext
-            builder.Services.AddDbContext<ApplicationDbContext>(options =>
-         options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
-          var app = builder.Build();
+            // Add DbContext
+        builder.Services.AddDbContext<ApplicationDbContext>(options =>
+   options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+
+        var app = builder.Build();
       
-            // Apply pending migrations and seed data
-         using (var scope = app.Services.CreateScope())
+      // Apply pending migrations and seed data
+  using (var scope = app.Services.CreateScope())
   {
    var dbContext = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
      dbContext.Database.Migrate();
@@ -30,24 +29,23 @@ namespace project
  SeedDatabase(dbContext);
  }
 
-          // Configure the HTTP request pipeline.
-      if (!app.Environment.IsDevelopment())
-            {
+        // Configure the HTTP request pipeline.
+   if (!app.Environment.IsDevelopment())
+ {
   app.UseExceptionHandler("/Error");
-            // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
+  // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
         app.UseHsts();
-      }
+    }
 
-         app.UseHttpsRedirection();
+ app.UseHttpsRedirection();
   app.UseStaticFiles();
-     app.UseSession();
-           
+app.UseSession();
+    
        app.UseRouting();
 
      app.UseAuthorization();
 
     app.MapRazorPages();
- app.MapControllers();
 
       app.Run();
       }
@@ -59,25 +57,25 @@ namespace project
          {
     var users = new List<User>
      {
-          new User
-    {
-        Name = "Admin User",
+ new User
+{
+    Name = "Admin User",
       Email = "admin@example.com",
-            Password = "Admin123!",
-         UImage = null
+ Password = "Admin123!",
+    UImage = null
      },
-       new User
+   new User
        {
         Name = "Student User",
               Email = "student@example.com",
     Password = "Student123!",
       UImage = null
-          }
-        };
+}
+     };
 
-     dbContext.Users.AddRange(users);
+  dbContext.Users.AddRange(users);
 dbContext.SaveChanges();
          }
-        }
+     }
     }
 }
