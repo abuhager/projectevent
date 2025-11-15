@@ -1,4 +1,4 @@
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using project.Models;
 
@@ -24,7 +24,7 @@ namespace project.Pages
         {
             if (string.IsNullOrEmpty(email) || string.IsNullOrEmpty(password))
             {
-                ErrorMessage = "?????? ?????????? ????? ?????? ??????";
+                ErrorMessage = "البريد الإلكتروني وكلمة المرور مطلوبة";
                 return Page();
             }
 
@@ -32,7 +32,7 @@ namespace project.Pages
 
             if (user == null)
             {
-                ErrorMessage = "?????? ???? ??? ?????";
+                ErrorMessage = "بيانات دخول غير صحيحة";
                 return Page();
             }
 
@@ -40,7 +40,7 @@ namespace project.Pages
             HttpContext.Session.SetInt32("UserId", user.Id);
             HttpContext.Session.SetString("UserName", user.Name);
 
-            return RedirectToPage("/Index");
+            return RedirectToPage("User/Index");
         }
     }
 }

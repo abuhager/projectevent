@@ -1,6 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using project.Models;
 
+
 namespace project
 {
     public class Program
@@ -9,18 +10,23 @@ namespace project
  {
          var builder = WebApplication.CreateBuilder(args);
 
+
             // Add services to the container.
  builder.Services.AddRazorPages();
             builder.Services.AddSession();
+
 
             // Add DbContext
         builder.Services.AddDbContext<ApplicationDbContext>(options =>
    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
         var app = builder.Build();
-      
-      // Apply pending migrations and seed data
-  using (var scope = app.Services.CreateScope())
+            app.MapControllerRoute(
+          name: "default",
+          pattern: "{controller=Home}/{action=Index}/{id?}");
+
+            // Apply pending migrations and seed data
+            using (var scope = app.Services.CreateScope())
   {
    var dbContext = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
      dbContext.Database.Migrate();
@@ -52,7 +58,6 @@ app.UseSession();
 
   private static void SeedDatabase(ApplicationDbContext dbContext)
       {
-    // ???? ??? ????????? ???? ??????
        if (!dbContext.Users.Any())
          {
     var users = new List<User>

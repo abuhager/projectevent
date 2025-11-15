@@ -40,7 +40,7 @@ namespace project.Controllers
             HttpContext.Session.SetInt32("UserId", user.Id);
             HttpContext.Session.SetString("UserName", user.Name);
 
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("Index", "User");
         }
     }
 }
